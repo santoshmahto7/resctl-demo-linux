@@ -1,0 +1,30 @@
+variables:
+  APT_OPTIONS: -y --allow-unauthenticated
+  ARCH: x86
+  CCACHE_BASEDIR: $CI_PROJECT_DIR
+  CCACHE_DIR: $CI_PROJECT_DIR/ccache
+
+stages:
+  - build
+
+build:
+  stage: build
+  image: debian:bullseye
+  cache:
+    paths:
+      - ccache
+  before_script:
+    - echo "deb  http://deb.debian.org/debian bullseye main" > /etc/apt/sources.list
+    - echo "deb-src http://deb.debian.org/debian bullseye main" >> /etc/apt/sources.list
+    - apt-get update && apt-get $APT_OPTIONS build-dep linux && apt-get $APT_OPTIONS install devscripts ccache fakeroot
+  script:
+    - export PATH="/usr/lib/ccache:$PATH"
+    - ccache -s
+    - make resctl-demo_defconfig
+    - make -j$(nproc) bindeb-pkg
+    - mkdir artifacts && dcmd mv ../*.changes artifacts/
+  artifacts:
+    name: debs
+    #expire_in: 2 days
+    paths:
+      - $CI_PROJECT_DIR/artifacts/*.deb
