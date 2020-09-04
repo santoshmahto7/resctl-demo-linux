@@ -25,6 +25,6 @@ build:
     - mkdir artifacts && dcmd mv ../*.changes artifacts/
   artifacts:
     name: debs
-    #expire_in: 2 days
+    expire_in: never
     paths:
       - $CI_PROJECT_DIR/artifacts/*.deb
