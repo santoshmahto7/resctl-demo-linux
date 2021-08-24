@@ -9,6 +9,8 @@ stages:
 
 build:
   stage: build
+  tags:
+   - heavyweight
   image: debian:bullseye
   cache:
     paths:
