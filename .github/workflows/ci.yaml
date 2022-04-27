@@ -24,7 +24,7 @@ jobs:
           apt-get --yes install devscripts \
                                 fakeroot
 
-      - name: Build image
+      - name: Build kernel
         run: |
           make ARCH=x86 resctl-demo_defconfig
           make ARCH=x86 -j$(nproc) bindeb-pkg
