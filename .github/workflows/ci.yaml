@@ -2,9 +2,6 @@ name: Build kernel
 on:
   pull_request:
   push:
-    branches:
-      - debian/master
-      - 'wip/**'
   # Build new kernel every 1st day of the month since artifacts only last 90-days
   schedule:
     - cron: "* * 1 * *"
