@@ -2,9 +2,9 @@ name: Build kernel
 on:
   pull_request:
   push:
-  # Build new kernel every 1st day of the month since artifacts only last 90-days
+  # Build at 01:00am every Monday
   schedule:
-    - cron: "* * 1 * *"
+    - cron: "0 1 * * 1"
   workflow_dispatch:
 
 jobs:
