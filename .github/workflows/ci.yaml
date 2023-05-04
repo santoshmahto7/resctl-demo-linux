@@ -34,7 +34,7 @@ jobs:
           mkdir out && dcmd mv ../*.changes out/
 
       - name: Publish artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: resctl-demo-kernel
           path: out/
